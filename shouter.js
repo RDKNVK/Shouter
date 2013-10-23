@@ -5,46 +5,64 @@
 //cx.fillRect(4,4,50,50);
 var c = $('#pseudocanvas');
 
-
 function Enemy (id) {
 	
 	var imgWidth = 50;
 	var imgHeight = 50;
-	
-	this.coords = 	(function start (w, h, imgW, imgH) {
-					var x = Math.random()*w;
-					var y = Math.random()*h;
-					
-					if ( Math.random() < 0.5){
-						x = -imgW/2;
-						x += Math.random() < 0.5 ? w : 0;
-					} else {
-						y = -imgH/2;
-						y += Math.random() < 0.5 ? h : 0;
-					}
-					
-					return {x: x, y: y};
-				})(c.width(), c.height(), imgWidth, imgHeight);
 
-	var htmlEl = $('<img>', {
-					"id": this.id,
-					"class": "enemy",
-					src: 'files/img/lebka.png',
-					width: imgWidth
-					
-					//"height": imgHeight
-				}).css({
-					//position: 'absolute',
-					top: this.coords.x,
-					left: this.coords.y
-				});
-
-	c.append(htmlEl);				
-
+	this.coords = {x: 0, y: 0};
+	this.rotation = 0;
 
 	this.id = 'enemy' + id;
 
-	this.rotation = 0;
+	// init position
+
+	(function init(th, w, h, imgW, imgH) {
+		var q = Math.floor(Math.random() * 4);
+		
+		switch (q){
+			case 0:
+				th.coords.x = Math.random() * w;
+				break;
+			case 1:
+				th.coords.x = w;
+				th.coords.y = Math.random() * h;
+				th.rotation = 90;
+				break;
+			case 2:
+				th.coords.x = Math.random() * w;
+				th.coords.y = h;
+				th.rotation = 180;
+				break;
+			case 3:
+				th.coords.y = Math.random() * h;
+				th.rotation = 270;
+				break;
+		}
+		th.coords.x -= imgWidth / 2;
+		th.coords.y -= imgHeight / 2;
+		
+	})(this, c.width(), c.height(), imgWidth, imgHeight);
+
+	// init html
+	var that = this;
+	var htmlEl = $('<img>', {
+				"id": this.id,
+				"class": "enemy",
+				src: 'files/img/lebka.png',
+				width: imgWidth
+				
+				//"height": imgHeight
+			}).css({
+				//position: 'absolute',
+				top: this.coords.x,
+				left: this.coords.y
+			});
+
+	c.append(htmlEl);	
+
+			
+	// enemy object methods
 
 	this.refresh = function (angle, length) {
 		var that = this;
