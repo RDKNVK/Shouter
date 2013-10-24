@@ -4,6 +4,7 @@
 //var pc = document.getElementById('pseudocanvas');
 //cx.fillRect(4,4,50,50);
 var c = $('#pseudocanvas');
+var CENTER = {X: c.width() /2, Y: c.height() / 2};
 
 function Enemy (id) {
 	
@@ -60,9 +61,36 @@ function Enemy (id) {
 			});
 
 	c.append(htmlEl);	
+	
+	function points2vector (A, B) {
+		return {x: A.x - B.x, y: A.y - B.y};
+	}
 
-			
+	function toCenterAngle (coords) {
+		//return Math.atan((CENTER.X-coords.x)/(CENTER.Y-coords.y))*180/Math.PI;
+	}		
 	// enemy object methods
+	function angle2vect (angle) {
+		angle = angle % 360;
+		if (angle > 270){
+			var alpha = angle % 270;
+			alpha = alpha * Math.PI/180;			
+			return {x: -Math.sin(alpha), y: Math.cos(alpha)};
+		} else if (angle > 180) {
+			var alpha = angle % 180;
+			alpha = alpha * Math.PI/180;
+			return {x: -Math.sin(alpha), y: -Math.cos(alpha)};
+
+		} else if (angle > 90) {
+			var alpha = angle % 90;
+			alpha = alpha * Math.PI/180;
+			return {x: Math.sin(alpha), y: -Math.cos(alpha)};
+			
+		} else {
+			var alpha = angle * Math.PI/180;
+			return {x: Math.sin(alpha), y: Math.cos(alpha)};
+		}
+	}
 
 	this.refresh = function (angle, length) {
 		var that = this;
@@ -79,8 +107,13 @@ function Enemy (id) {
 
 		this.coords.x += Math.cos(Math.PI*(this.rotation+90)/180) * length;
 		this.coords.y += Math.sin(Math.PI*(this.rotation+90)/180) * length;
+		
+		// wrap
+		this.coords.x = this.coords.x > c.width()  ? imgWidth/2: this.coords.x;
+		this.coords.x = this.coords.x < 0 ? c.width() - imgWidth/2: this.coords.x;
+		this.coords.y = this.coords.y > c.height()  ? imgHeight/2: this.coords.y;
+		this.coords.y = this.coords.y < 0 ? c.height() - imgHeight/2: this.coords.y;
 
-				
 		htmlEl.rotate({
 					animateTo: this.rotation,
 					callback: move,
@@ -102,7 +135,7 @@ var GAME = {
 			var cur_enemy = GAME.enemies[i];
 			//cur_enemy.rotate(10);
 			//cur_enemy.move(0.01,0.01);
-			cur_enemy.refresh(5, 5);
+			cur_enemy.refresh(Math.random()*10-5, 5);
 		}
 	},
 	addEnemy: function () {
