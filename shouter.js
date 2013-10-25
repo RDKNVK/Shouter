@@ -68,45 +68,64 @@ function Enemy (id) {
 		c.append(img_el);	
 		c.append(word_el);
 	//})();
-	this.refresh = function (angle, length) {
-		var move = function() {
-						img_el.animate(	{
-							top: coords.y,
-							left: coords.x
-						}, {
-							duration: 200
-						});
-						word_el.animate(	{
-							top: coords.y - 10,
-							left: coords.x
-						}, {
-							duration: 200
-						});
-					};
 
-		rotation += angle;
+	var move = function(length) {
+		length = length || 10;
 
 		coords.x += Math.cos(Math.PI*(rotation+90)/180) * length;
 		coords.y += Math.sin(Math.PI*(rotation+90)/180) * length;
 		
+		// will we wrap?
+		var wrap =	coords.x > c.width() - imgWidth/2 || 
+					coords.x < -imgWidth/2 || 
+					coords.y > c.height() -imgHeight/2 ||
+					coords.y < -imgHeight/2 ? true : false;
+
 		// wrap
 		coords.x = coords.x > c.width() - imgWidth/2	? 0-imgWidth/2: coords.x;
 		coords.x = coords.x < -imgWidth/2				? c.width() - imgWidth/2: coords.x;
 		coords.y = coords.y > c.height() -imgHeight/2 	? 0-imgHeight/2: coords.y;
 		coords.y = coords.y < -imgHeight/2 				? c.height() - imgHeight/2: coords.y;
 
+		if (wrap) {
+
+			img_el.css({top: coords.y, left: coords.x});
+			word_el.css({top: coords.y, left: coords.x});
+			
+		} else {
+
+			img_el.animate(	{
+				top: coords.y,
+				left: coords.x
+			}, {
+				duration: 200
+			});
+	
+			word_el.animate(	{
+				top: coords.y - 10,
+				left: coords.x
+			}, {
+				duration: 200
+			});
+		}
+	};
+
+	var rotate = function (angle, callb) {
+		rotation += angle;
+
 		img_el.rotate({
 					animateTo: rotation,
-					callback: move,
+					callback: move(4),
 					duration: 20
 		});
+	}
 
+	this.refresh = function () {
+		
+		rotate(Math.random()*20-10, move(10));
 	}
 	
 }
-
-//var en = new Enemy();
-//en.draw();
 
 var GAME = {
 	enemies: [],
@@ -114,9 +133,7 @@ var GAME = {
 	refresh_all: function () {
 		for (var i = 0; i < GAME.enemies.length; i++){
 			var cur_enemy = GAME.enemies[i];
-			//cur_enemy.rotate(10);
-			//cur_enemy.move(0.01,0.01);
-			cur_enemy.refresh(Math.random()*20-10, 10);
+			cur_enemy.refresh();
 		}
 	},
 	addEnemy: function () {
@@ -125,7 +142,6 @@ var GAME = {
 
 };
 
-//GAME.addEnemy();
 
 var refresh = window.setInterval(GAME.refresh_all, 700);
 //var	addEnemy_timer = window.setInterval(GAME.addEnemy, 5000);
