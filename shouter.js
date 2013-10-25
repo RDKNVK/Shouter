@@ -9,130 +9,100 @@ var CENTER = {X: c.width() /2, Y: c.height() / 2};
 
 function Enemy (id) {
 	
-	var imgWidth = 50;
-	var imgHeight = 50;
-
-	this.coords = {x: 0, y: 0};
-	this.rotation = 0;
-
-	this.id = 'enemy' + id;
+	var imgWidth = 50,
+		imgHeight = 50,
+		img_el,
+		html_el,
+		element_id = 'enemy' + id,
+		coords = {x: 0, y: 0},
+		rotation = 0;
 
 	// init position
-
-	(function init(th, w, h, imgW, imgH) {
+	(function init(w, h) {
 		var q = Math.floor(Math.random() * 4);
-		
+		var w = c.width(),
+			h = c.height();
+
 		switch (q){
 			case 0:
-				th.coords.x = Math.random() * w;
+				coords.x = Math.random() * w;
 				break;
 			case 1:
-				th.coords.x = w;
-				th.coords.y = Math.random() * h;
-				th.rotation = 90;
+				coords.x = w;
+				coords.y = Math.random() * h;
+				rotation = 90;
 				break;
 			case 2:
-				th.coords.x = Math.random() * w;
-				th.coords.y = h;
-				th.rotation = 180;
+				coords.x = Math.random() * w;
+				coords.y = h;
+				rotation = 180;
 				break;
 			case 3:
-				th.coords.y = Math.random() * h;
-				th.rotation = 270;
+				coords.y = Math.random() * h;
+				rotation = 270;
 				break;
 		}
-		th.coords.x -= imgWidth / 2;
-		th.coords.y -= imgHeight / 2;
+		coords.x -= imgWidth / 2;
+		coords.y -= imgHeight / 2;
 		
-	})(this, c.width(), c.height(), imgWidth, imgHeight);
+	})();
 
 	// init html
-	var that = this;
-	var img_el = $('<img>', {
-				"id": this.id,
-				"class": "enemy",
-				src: 'files/img/lebka.png',
-				width: imgWidth
-				//"height": imgHeight
-			}).css({
-				top: this.coords.x,
-				left: this.coords.y
-			});
-	var word_el = $('<div>').addClass('word')
-					.css({
-							top: this.coords.x,
-							left: this.coords.y
-					}).text('skdjflsjdflkj');
-
-	c.append(img_el);	
-	c.append(word_el);
-
-	function points2vector (A, B) {
-		return {x: A.x - B.x, y: A.y - B.y};
-	}
-
-	function toCenterAngle (coords) {
-		//return Math.atan((CENTER.X-coords.x)/(CENTER.Y-coords.y))*180/Math.PI;
-	}		
-	// enemy object methods
-	function angle2vect (angle) {
-		angle = angle % 360;
-		if (angle > 270){
-			var alpha = angle % 270;
-			alpha = alpha * Math.PI/180;			
-			return {x: -Math.sin(alpha), y: Math.cos(alpha)};
-		} else if (angle > 180) {
-			var alpha = angle % 180;
-			alpha = alpha * Math.PI/180;
-			return {x: -Math.sin(alpha), y: -Math.cos(alpha)};
-
-		} else if (angle > 90) {
-			var alpha = angle % 90;
-			alpha = alpha * Math.PI/180;
-			return {x: Math.sin(alpha), y: -Math.cos(alpha)};
-			
-		} else {
-			var alpha = angle * Math.PI/180;
-			return {x: Math.sin(alpha), y: Math.cos(alpha)};
-		}
-	}
-
+	//(function init_html(){
+	var	img_el = $('<img>', {
+					"id": element_id,
+					"class": "enemy",
+					src: 'files/img/lebka.png',
+					width: imgWidth
+					//"height": imgHeight
+				}).css({
+					top: coords.x,
+					left: coords.y
+				});
+	var	word_el = $('<div>').addClass('word')
+						.css({
+								top: coords.x,
+								left: coords.y
+						}).text('skdjflsjdflkj');
+	
+		c.append(img_el);	
+		c.append(word_el);
+	//})();
 	this.refresh = function (angle, length) {
-		var that = this;
 		var move = function() {
 						img_el.animate(	{
-							top: that.coords.y,
-							left: that.coords.x
+							top: coords.y,
+							left: coords.x
 						}, {
 							duration: 200
 						});
 						word_el.animate(	{
-							top: that.coords.y - 10,
-							left: that.coords.x
+							top: coords.y - 10,
+							left: coords.x
 						}, {
 							duration: 200
 						});
 					};
 
-		this.rotation += angle;
+		rotation += angle;
 
-		this.coords.x += Math.cos(Math.PI*(this.rotation+90)/180) * length;
-		this.coords.y += Math.sin(Math.PI*(this.rotation+90)/180) * length;
+		coords.x += Math.cos(Math.PI*(rotation+90)/180) * length;
+		coords.y += Math.sin(Math.PI*(rotation+90)/180) * length;
 		
 		// wrap
-		this.coords.x = this.coords.x > c.width() - imgWidth/2	? 0-imgWidth/2: this.coords.x;
-		this.coords.x = this.coords.x < -imgWidth/2				? c.width() - imgWidth/2: this.coords.x;
-		this.coords.y = this.coords.y > c.height() -imgHeight/2 ? 0-imgHeight/2: this.coords.y;
-		this.coords.y = this.coords.y < -imgHeight/2 			? c.height() - imgHeight/2: this.coords.y;
+		coords.x = coords.x > c.width() - imgWidth/2	? 0-imgWidth/2: coords.x;
+		coords.x = coords.x < -imgWidth/2				? c.width() - imgWidth/2: coords.x;
+		coords.y = coords.y > c.height() -imgHeight/2 	? 0-imgHeight/2: coords.y;
+		coords.y = coords.y < -imgHeight/2 				? c.height() - imgHeight/2: coords.y;
 
 		img_el.rotate({
-					animateTo: this.rotation,
+					animateTo: rotation,
 					callback: move,
 					duration: 20
 		});
 
 	}
-
+	
 }
 
 //var en = new Enemy();
