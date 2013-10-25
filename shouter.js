@@ -6,6 +6,7 @@
 var c = $('#pseudocanvas');
 var CENTER = {X: c.width() /2, Y: c.height() / 2};
 
+
 function Enemy (id) {
 	
 	var imgWidth = 50;
@@ -47,21 +48,25 @@ function Enemy (id) {
 
 	// init html
 	var that = this;
-	var htmlEl = $('<img>', {
+	var img_el = $('<img>', {
 				"id": this.id,
 				"class": "enemy",
 				src: 'files/img/lebka.png',
 				width: imgWidth
-				
 				//"height": imgHeight
 			}).css({
-				//position: 'absolute',
 				top: this.coords.x,
 				left: this.coords.y
 			});
+	var word_el = $('<div>').addClass('word')
+					.css({
+							top: this.coords.x,
+							left: this.coords.y
+					}).text('skdjflsjdflkj');
 
-	c.append(htmlEl);	
-	
+	c.append(img_el);	
+	c.append(word_el);
+
 	function points2vector (A, B) {
 		return {x: A.x - B.x, y: A.y - B.y};
 	}
@@ -95,8 +100,14 @@ function Enemy (id) {
 	this.refresh = function (angle, length) {
 		var that = this;
 		var move = function() {
-						htmlEl.animate(	{
+						img_el.animate(	{
 							top: that.coords.y,
+							left: that.coords.x
+						}, {
+							duration: 200
+						});
+						word_el.animate(	{
+							top: that.coords.y - 10,
 							left: that.coords.x
 						}, {
 							duration: 200
@@ -109,12 +120,12 @@ function Enemy (id) {
 		this.coords.y += Math.sin(Math.PI*(this.rotation+90)/180) * length;
 		
 		// wrap
-		this.coords.x = this.coords.x > c.width()  ? imgWidth/2: this.coords.x;
-		this.coords.x = this.coords.x < 0 ? c.width() - imgWidth/2: this.coords.x;
-		this.coords.y = this.coords.y > c.height()  ? imgHeight/2: this.coords.y;
-		this.coords.y = this.coords.y < 0 ? c.height() - imgHeight/2: this.coords.y;
+		this.coords.x = this.coords.x > c.width() - imgWidth/2	? 0-imgWidth/2: this.coords.x;
+		this.coords.x = this.coords.x < -imgWidth/2				? c.width() - imgWidth/2: this.coords.x;
+		this.coords.y = this.coords.y > c.height() -imgHeight/2 ? 0-imgHeight/2: this.coords.y;
+		this.coords.y = this.coords.y < -imgHeight/2 			? c.height() - imgHeight/2: this.coords.y;
 
-		htmlEl.rotate({
+		img_el.rotate({
 					animateTo: this.rotation,
 					callback: move,
 					duration: 20
@@ -135,7 +146,7 @@ var GAME = {
 			var cur_enemy = GAME.enemies[i];
 			//cur_enemy.rotate(10);
 			//cur_enemy.move(0.01,0.01);
-			cur_enemy.refresh(Math.random()*10-5, 5);
+			cur_enemy.refresh(Math.random()*20-10, 10);
 		}
 	},
 	addEnemy: function () {
@@ -146,7 +157,7 @@ var GAME = {
 
 //GAME.addEnemy();
 
-var refresh = window.setInterval(GAME.refresh_all, 1700);
+var refresh = window.setInterval(GAME.refresh_all, 700);
 //var	addEnemy_timer = window.setInterval(GAME.addEnemy, 5000);
 
 
