@@ -41,16 +41,17 @@ input {
     color: white;
     font-weight: bold;
     font-family: sans-serif;
-    background-color: rgba(255, 255, 255, 0.3);
+    text-shadow: 2px 2px 1px rgba(0,0,0,0.7);
+    background-color: rgba(255, 255, 255, 0.4);
     display: block;
     margin: 0 auto;
     position: absolute;
-    width: 70px;
+    width: 100px;
     height: 16px;
     top: calc(50% - 8px);
-    left: calc(50% - 35px);
+    left: calc(50% - 50px);
     outline: none;
     text-align: center;
-    border: 1px solid rgba(255, 255, 255, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.7);
     border-radius: 4px;
 }
