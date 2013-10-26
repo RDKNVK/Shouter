@@ -81,14 +81,16 @@ function Enemy (id) {
 					coords.y > c.height() -imgHeight/2 ||
 					coords.y < -imgHeight/2 ? true : false;
 
-		// wrap
-		coords.x = coords.x > c.width() - imgWidth/2	? 0-imgWidth/2: coords.x;
-		coords.x = coords.x < -imgWidth/2				? c.width() - imgWidth/2: coords.x;
-		coords.y = coords.y > c.height() -imgHeight/2 	? 0-imgHeight/2: coords.y;
-		coords.y = coords.y < -imgHeight/2 				? c.height() - imgHeight/2: coords.y;
+		
+		
 
 		if (wrap) {
-
+			// first wrap coords
+			coords.x = coords.x > c.width() - imgWidth/2	? 0-imgWidth/2: coords.x;
+			coords.x = coords.x < -imgWidth/2				? c.width() - imgWidth/2: coords.x;
+			coords.y = coords.y > c.height() -imgHeight/2 	? 0-imgHeight/2: coords.y;
+			coords.y = coords.y < -imgHeight/2 				? c.height() - imgHeight/2: coords.y;
+			// then move without animation
 			img_el.css({top: coords.y, left: coords.x});
 			word_el.css({top: coords.y, left: coords.x});
 			
@@ -121,7 +123,7 @@ function Enemy (id) {
 	}
 
 	this.refresh = function () {
-		
+
 		rotate(Math.random()*20-10, move(10));
 	}
 	

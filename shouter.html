@@ -1,74 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
-	<style>
-		* { 
-			padding: 0; 
-			margin: 0; 
-
-			-webkit-user-select: none;  /* Chrome all / Safari all */
-  			-moz-user-select: none;     /* Firefox all */
-  			-ms-user-select: none;      /* IE 10+ */
-  			-o-user-select: none;
-  			user-select: none; }
-
-		canvas {
-			display: block;
-			margin: 0 auto;
-			background-color: gray;
-			display: none;
-		}
-		#pseudocanvas {
-			width: 800px;
-			height: 800px;
-			background-color: gray;
-			position: absolute;
-			left: calc(50% - 400px);
-			top: calc(50% - 400px);
-		}
-		.enemy {
-			position: absolute;
-		}
-		div.word {
-			position: absolute;
-			background: rgba(0,0,0,0.5);
-			color: rgba(255,255,255,0.7);
-			font-size: 14px;
-			font-weight: bold;
-			border: 2px solid rgba(255,255,255,0.5);
-			border-radius: 4px;
-			display: inline-block;
-			padding: 2px 5px;
-			z-index: 2;
-		}
-		input {
-			background-color: rgba(255,255,255,0.3);
-			display: block;
-			margin: 0 auto;
-			position: absolute;
-			width: 70px;
-			height: 16px;
-			top: calc(50% - 8px);
-			left: calc(50% - 35px);
-			outline: none;
-			text-align: center;
-			border: 1px solid rgba(255,255,255,0.5);
-			border-radius: 4px;
-		}
-	</style>
+	<meta charset="utf-8">
+	<title>Shouter</title>
+	<link rel="stylesheet" type="text/css" href="files/style.css">
 </head>
 <body>
-	<!--<canvas width="800" height="800"></canvas>-->
 	<div id="pseudocanvas" onclick="GAME.addEnemy();">
 		<input type="text" autofocus>
 	</div>
 
-	<!--<img src="files/img/lebka.png" class="enemy" width="100">-->
-
-<!--<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>-->
-<script src="files/libs/jquery-1.9.1.min.js"></script>
-<script src="files/libs/jQueryRotateCompressed.js"></script>
-<script src="shouter.js"></script>
+	<!--<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>-->
+	<script src="files/libs/jquery-1.9.1.min.js"></script>
+	<script src="files/libs/jQueryRotateCompressed.js"></script>
+	<script src="shouter.js"></script>
 </body>
 </html>
