@@ -5,7 +5,6 @@ Array.prototype.remove = function(from, to) {
   return this.push.apply(this, rest);
 };
 
-
 // from: http://stackoverflow.com/questions/6524288/jquery-event-for-user-pressing-enter-in-a-textbox
 //use it:
 //$('textarea').pressEnter(function(){alert('here')})
@@ -23,13 +22,13 @@ $.fn.pressEnter = function(fn) {
  }; 
 
 
-
 var c = $('#pseudocanvas');
 var CENTER_BOX = {X: 235, Y: 235};
-var WORDS = ['Acinetobacter infections', 'Actinomycosis', 'Amebiasis', 'Anaplasmosis', 'Anthrax', 'Ascariasis', 'Aspergillosis', 'Astrovirus infection', 'Babesiosis', 'Bacterial pneumonia', 'Bacteroides infection', 'Balantidiasis', 'Baylisascaris infection', 'Black piedra', 'Blastomycosis', 'Borrelia infection', 'Brucellosis', 'Bubonic plague', 'Burkholderia infection', 'Buruli ulcer', 'Campylobacteriosis', 'Cat-scratch disease', 'Cellulitis', 'Chancroid', 'Chickenpox', 'Chlamydia', 'Cholera', 'Chromoblastomycosis', 'Clonorchiasis', 'Coccidioidomycosis', 'Cryptococcosis', 'Cryptosporidiosis', 'Cyclosporiasis', 'Cysticercosis', 'Cytomegalovirus infection', 'Dengue fever', 'Dientamoebiasis', 'Diphtheria', 'Diphyllobothriasis', 'Dracunculiasis', 'Echinococcosis', 'Ehrlichiosis', 'Enterococcus infection', 'Enterovirus infection', 'Epidemic typhus', 'Fasciolopsiasis', 'Fasciolosis', 'Filariasis', 'Fusobacterium infection', 'Geotrichosis', 'Giardiasis', 'Glanders', 'Gnathostomiasis', 'Gonorrhea', 'Hepatitis A', 'Hepatitis B', 'Hepatitis C', 'Hepatitis D', 'Hepatitis E', 'Herpes simplex', 'Histoplasmosis', 'Hookworm infection', 'Hymenolepiasis', 'Influenza', 'Isosporiasis', 'Kawasaki disease', 'Keratitis', 'Kuru', 'Lassa fever', 'Leishmaniasis', 'Leprosy', 'Leptospirosis', 'Listeriosis', 'Lymphocytic choriomeningitis', 'Malaria', 'Measles', 'Meningitis', 'Meningococcal disease', 'Metagonimiasis', 'Microsporidiosis', 'Monkeypox', 'Mumps', 'Mycoplasma pneumonia', 'Mycetoma', 'Myiasis', 'Nocardiosis', 'Paragonimiasis', 'Pasteurellosis', 'Plague', 'Pneumococcal infection', 'Pneumonia', 'Poliomyelitis', 'Prevotella infection', 'Psittacosis', 'Q fever', 'Rabies', 'Rat-bite fever', 'Rhinosporidiosis', 'Rhinovirus infection', 'Rickettsial infection', 'Rickettsialpox', 'Rotavirus infection', 'Rubella', 'Salmonellosis', 'Scabies', 'Schistosomiasis', 'Sepsis', 'Smallpox', 'Sporotrichosis', 'Staphylococcal infection', 'Strongyloidiasis', 'Syphilis', 'Taeniasis', 'Tetanus', 'Tinea nigra', 'Trinochccliasis', 'Trichinlosis', 'Trichomoniasis', 'Tuberculosis', 'Tularemia', 'Valley fever', 'Viral pneumonia', 'Yersiniosis', 'Yellow fever', 'Zygomycosis']
 
-function Enemy (id) {
-	
+var WORDS = ['Acinetobacter infections', 'Actinomycosis', 'Amebiasis', 'Anaplasmosis', 'Anthrax', 'Ascariasis', 'Aspergillosis', 'Astrovirus infection', 'Babesiosis', 'Bacterial pneumonia', 'Bacteroides infection', 'Balantidiasis', 'Baylisascaris infection', 'Black piedra', 'Blastomycosis', 'Borrelia infection', 'Brucellosis', 'Bubonic plague', 'Burkholderia infection', 'Buruli ulcer', 'Campylobacteriosis', 'Cat-scratch disease', 'Cellulitis', 'Chancroid', 'Chickenpox', 'Chlamydia', 'Cholera', 'Chromoblastomycosis', 'Clonorchiasis', 'Coccidioidomycosis', 'Cryptococcosis', 'Cryptosporidiosis', 'Cyclosporiasis', 'Cysticercosis', 'Cytomegalovirus infection', 'Dengue fever', 'Dientamoebiasis', 'Diphtheria', 'Diphyllobothriasis', 'Dracunculiasis', 'Echinococcosis', 'Ehrlichiosis', 'Enterococcus infection', 'Enterovirus infection', 'Epidemic typhus', 'Fasciolopsiasis', 'Fasciolosis', 'Filariasis', 'Fusobacterium infection', 'Geotrichosis', 'Giardiasis', 'Glanders', 'Gnathostomiasis', 'Gonorrhea', 'Hepatitis A', 'Hepatitis B', 'Hepatitis C', 'Hepatitis D', 'Hepatitis E', 'Herpes simplex', 'Histoplasmosis', 'Hookworm infection', 'Hymenolepiasis', 'Influenza', 'Isosporiasis', 'Kawasaki disease', 'Keratitis', 'Kuru', 'Lassa fever', 'Leishmaniasis', 'Leprosy', 'Leptospirosis', 'Listeriosis', 'Lymphocytic choriomeningitis', 'Malaria', 'Measles', 'Meningitis', 'Meningococcal disease', 'Metagonimiasis', 'Microsporidiosis', 'Monkeypox', 'Mumps', 'Mycoplasma pneumonia', 'Mycetoma', 'Myiasis', 'Nocardiosis', 'Paragonimiasis', 'Pasteurellosis', 'Plague', 'Pneumococcal infection', 'Pneumonia', 'Poliomyelitis', 'Prevotella infection', 'Psittacosis', 'Q fever', 'Rabies', 'Rat-bite fever', 'Rhinosporidiosis', 'Rhinovirus infection', 'Rickettsial infection', 'Rickettsialpox', 'Rotavirus infection', 'Rubella', 'Salmonellosis', 'Scabies', 'Schistosomiasis', 'Sepsis', 'Smallpox', 'Sporotrichosis', 'Staphylococcal infection', 'Strongyloidiasis', 'Syphilis', 'Taeniasis', 'Tetanus', 'Tinea nigra', 'Trinochccliasis', 'Trichinlosis', 'Trichomoniasis', 'Tuberculosis', 'Tularemia', 'Valley fever', 'Viral pneumonia', 'Yersiniosis', 'Yellow fever', 'Zygomycosis']
+var EASY_WORDS = ["Aardvark","Albatross","Alligator","Alpaca","Ant","Anteater","Antelope","Ape","Armadillo","Ass/Donkey","Baboon","Badger","Barracuda","Bat","Bear","Beaver","Bee","Bison","Boar","Buffalo","Galago","Butterfly","Camel","Caribou","Cat","Caterpillar","Cattle","Chamois","Cheetah","Chicken","Chimpanzee","Chinchilla","Chough","Clam","Cobra","Cockroach","Cod","Cormorant","Coyote","Crab","Crane","Crocodile","Crow","Curlew","Deer","Dinosaur","Dog","Dogfish","Dolphin","Donkey","Dotterel","Dove","Dragonfly","Duck","Mallard","Dugong","Dunlin","Eagle","Echidna","Eel","Eland","Elephant","Elephant seal","Elk","Wapiti","Emu","Falcon","Ferret","Finch","Fish","Flamingo","Fly","Fox","Frog","Gaur","Gazelle","Gerbil","Giant Panda","Giraffe","Gnat","Gnu","Goat","Goose","Goldfinch","Goldfish","Gorilla","Goshawk","Grasshopper","Grouse","Guanaco","Guinea fowl","Guinea pig","Gull","Hamster","Hare","Hawk","Hedgehog","Heron","Herring","Hippopotamus","Hornet","Horse","Human","Hummingbird","Hyena","Jackal","Jaguar","Jay","Blue Jay","Jellyfish","Kangaroo","Koala","Komodo dragon","Kouprey","Kudu","Lapwing","Lark","Lemur","Leopard","Lion","Llama","Lobster","Locust","Loris","Louse","Lyrebird","Magpie","Mallard","Manatee","Marten","Meerkat","Mink","Mole","Monkey","Moose","Mouse","Mosquito","Mule","Narwhal","Newt","Nightingale","Octopus","Okapi","Opossum","Oryx","Ostrich","Otter","Owl","Ox","Oyster","Panther","Parrot","Partridge","Peafowl","Pelican","Penguin","Pheasant","Pig","Pigeon","Pony","Porcupine","Porpoise","Prairie Dog","Quail","Quelea","Rabbit","Raccoon","Rail","Ram","Rat","Raven","Red deer","Red panda","Reindeer","Caribou","Rhinoceros","Rook","Ruff","Salamander","Salmon","Sand Dollar","Sandpiper","Sardine","Scorpion","Sea lion","Sea Urchin","Seahorse","Seal","Shark","Sheep","Shrew","Shrimp","Skunk","Snail","Snake","Spider","Squid","Squirrel","Starling","Stingray","Stinkbug","Stork","Swallow","Swan","Tapir","Tarsier","Termite","Tiger","Toad","Trout","Turkey","Turtle","Vicuña","Viper","Vulture","Wallaby","Walrus","Wasp","Water buffalo","Weasel","Whale","Wolf","Wolverine","Wombat","Woodcock","Woodpecker","Worm","Wren","Yak","Zebra"];
+
+function Enemy (id, level) {
 	var imgWidth = 50,
 		imgHeight = 69,
 		img_el,
@@ -37,7 +36,8 @@ function Enemy (id) {
 		element_id = 'enemy' + id,
 		coords = {x: 0, y: 0},
 		rotation = 0,
-		this_word = WORDS[Math.floor(WORDS.length * Math.random())];
+		word_n = Math.floor(WORDS.length * Math.random()),
+		this_word = level < 11 ? EASY_WORDS[word_n] : WORDS[word_n];
 
 	// init position
 	(function init(w, h) {
@@ -145,8 +145,9 @@ function Enemy (id) {
 				duration: 200
 			});
 
-			if (collision(coords.x, coords.y))
-				console.log('CHCIP!');
+			if (collision(coords.x, coords.y)){
+				//console.log(id, 'CHCIP!');
+			}
 		}
 	};
 
@@ -155,27 +156,47 @@ function Enemy (id) {
 
 		img_el.rotate({
 					animateTo: rotation,
-					callback: move(4),
+					callback: callb,
 					duration: 20
 		});
 	}
 
 	this.refresh = function () {
 
-		rotate(Math.random()*20-10, move(10));
+		rotate(Math.random()*20-10, move(5*Math.sqrt(level)));
 	}
 	this.getWord = function () {
 		return this_word;
 	}
 	this.destroy = function () {
-		// body...
+		GAME.scoreIncr();
+		word_el.remove();
+		img_el.effect('explode', {pieces: 30}, 200, function(){img_el.remove()});
+
 	}
 
 }
 
 var GAME = {
 	enemies: [],
-	level: 1,	
+	level: 1,
+	max_enemies: 5,
+	score: 0,
+	scoreIncr: function () {
+		GAME.score += 1;
+		$('#score').text(GAME.score);
+		
+		var new_level = Math.floor(GAME.score / 10) + 1;
+		if (new_level !== GAME.level) {
+			GAME.level = new_level;
+			GAME.max_enemies += 1;
+			window.clearInterval(refresh);
+			refresh = window.setInterval(GAME.refreshAll, Math.floor(1000/Math.sqrt(GAME.level)));
+			addEnemy_timer = window.setInterval(GAME.refreshAll, Math.floor(5000/Math.sqrt(GAME.level)));
+
+		}
+
+	},
 	refreshAll: function () {
 		for (var i = 0; i < GAME.enemies.length; i++){
 			var cur_enemy = GAME.enemies[i];
@@ -183,7 +204,8 @@ var GAME = {
 		}
 	},
 	addEnemy: function () {
-		GAME.enemies.push(new Enemy(GAME.enemies.length));
+		if (GAME.enemies.length < GAME.max_enemies)
+			GAME.enemies.push(new Enemy(GAME.enemies.length, GAME.level));
 	}, 
 	tryWord: function (word) {
 		for (var i = 0, ii = GAME.enemies.length; i < ii; i++){
@@ -211,7 +233,7 @@ $(window).click(function () {
 });
 
 
-var refresh = window.setInterval(GAME.refreshAll, 700);
-//var	addEnemy_timer = window.setInterval(GAME.addEnemy, 5000);
+var refresh = window.setInterval(GAME.refreshAll, 1000);
+var addEnemy_timer = window.setInterval(GAME.addEnemy, 5000);
 
 
