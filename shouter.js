@@ -1,8 +1,29 @@
-//var c = document.getElementsByTagName('canvas')[0];
-//var cx = c.getContext('2d');
+// Array Remove - By John Resig (MIT Licensed)
+Array.prototype.remove = function(from, to) {
+  var rest = this.slice((to || from) + 1 || this.length);
+  this.length = from < 0 ? this.length + from : from;
+  return this.push.apply(this, rest);
+};
 
-//var pc = document.getElementById('pseudocanvas');
-//cx.fillRect(4,4,50,50);
+
+// from: http://stackoverflow.com/questions/6524288/jquery-event-for-user-pressing-enter-in-a-textbox
+//use it:
+//$('textarea').pressEnter(function(){alert('here')})
+$.fn.pressEnter = function(fn) {  
+
+    return this.each(function() {  
+        $(this).bind('enterPress', fn);
+        $(this).keyup(function(e){
+            if(e.keyCode == 13)
+            {
+              $(this).trigger("enterPress");
+            }
+        })
+    });  
+ }; 
+
+
+
 var c = $('#pseudocanvas');
 var CENTER = {X: c.width() /2, Y: c.height() / 2};
 var WORDS = ['Acinetobacter infections', 'Actinomycosis', 'Amebiasis', 'Anaplasmosis', 'Anthrax', 'Ascariasis', 'Aspergillosis', 'Astrovirus infection', 'Babesiosis', 'Bacterial pneumonia', 'Bacteroides infection', 'Balantidiasis', 'Baylisascaris infection', 'Black piedra', 'Blastomycosis', 'Borrelia infection', 'Brucellosis', 'Bubonic plague', 'Burkholderia infection', 'Buruli ulcer', 'Campylobacteriosis', 'Cat-scratch disease', 'Cellulitis', 'Chancroid', 'Chickenpox', 'Chlamydia', 'Cholera', 'Chromoblastomycosis', 'Clonorchiasis', 'Coccidioidomycosis', 'Cryptococcosis', 'Cryptosporidiosis', 'Cyclosporiasis', 'Cysticercosis', 'Cytomegalovirus infection', 'Dengue fever', 'Dientamoebiasis', 'Diphtheria', 'Diphyllobothriasis', 'Dracunculiasis', 'Echinococcosis', 'Ehrlichiosis', 'Enterococcus infection', 'Enterovirus infection', 'Epidemic typhus', 'Fasciolopsiasis', 'Fasciolosis', 'Filariasis', 'Fusobacterium infection', 'Geotrichosis', 'Giardiasis', 'Glanders', 'Gnathostomiasis', 'Gonorrhea', 'Hepatitis A', 'Hepatitis B', 'Hepatitis C', 'Hepatitis D', 'Hepatitis E', 'Herpes simplex', 'Histoplasmosis', 'Hookworm infection', 'Hymenolepiasis', 'Influenza', 'Isosporiasis', 'Kawasaki disease', 'Keratitis', 'Kuru', 'Lassa fever', 'Leishmaniasis', 'Leprosy', 'Leptospirosis', 'Listeriosis', 'Lymphocytic choriomeningitis', 'Malaria', 'Measles', 'Meningitis', 'Meningococcal disease', 'Metagonimiasis', 'Microsporidiosis', 'Monkeypox', 'Mumps', 'Mycoplasma pneumonia', 'Mycetoma', 'Myiasis', 'Nocardiosis', 'Paragonimiasis', 'Pasteurellosis', 'Plague', 'Pneumococcal infection', 'Pneumonia', 'Poliomyelitis', 'Prevotella infection', 'Psittacosis', 'Q fever', 'Rabies', 'Rat-bite fever', 'Rhinosporidiosis', 'Rhinovirus infection', 'Rickettsial infection', 'Rickettsialpox', 'Rotavirus infection', 'Rubella', 'Salmonellosis', 'Scabies', 'Schistosomiasis', 'Sepsis', 'Smallpox', 'Sporotrichosis', 'Staphylococcal infection', 'Strongyloidiasis', 'Syphilis', 'Taeniasis', 'Tetanus', 'Tinea nigra', 'Trinochccliasis', 'Trichinlosis', 'Trichomoniasis', 'Tuberculosis', 'Tularemia', 'Valley fever', 'Viral pneumonia', 'Yersiniosis', 'Yellow fever', 'Zygomycosis']
@@ -15,7 +36,8 @@ function Enemy (id) {
 		html_el,
 		element_id = 'enemy' + id,
 		coords = {x: 0, y: 0},
-		rotation = 0;
+		rotation = 0,
+		this_word = WORDS[Math.floor(WORDS.length * Math.random())];
 
 	// init position
 	(function init(w, h) {
@@ -63,7 +85,7 @@ function Enemy (id) {
 						.css({
 								top: coords.x,
 								left: coords.y
-						}).text(WORDS[Math.floor(WORDS.length * Math.random())]);
+						}).text(this_word);
 	
 		c.append(img_el);	
 		c.append(word_el);
@@ -76,10 +98,10 @@ function Enemy (id) {
 		coords.y += Math.sin(Math.PI*(rotation+90)/180) * length;
 		
 		// will we wrap?
-		var wrap =	coords.x > c.width() - imgWidth/2 || 
-					coords.x < -imgWidth/2 || 
-					coords.y > c.height() -imgHeight/2 ||
-					coords.y < -imgHeight/2 ? true : false;
+		var wrap =	coords.x > c.width() - imgWidth/2 	|| 
+					coords.x < -imgWidth/2 				|| 
+					coords.y > c.height() -imgHeight/2 	||
+					coords.y < -imgHeight/2 			? true : false;
 
 		if (wrap) {
 			// first wrap coords
@@ -110,7 +132,7 @@ function Enemy (id) {
 	};
 
 	var rotate = function (angle, callb) {
-		rotation += angle;
+		rotation = (rotation + angle) % 360;
 
 		img_el.rotate({
 					animateTo: rotation,
@@ -123,7 +145,13 @@ function Enemy (id) {
 
 		rotate(Math.random()*20-10, move(10));
 	}
-	
+	this.get_word = function () {
+		return this_word;
+	}
+	this.destroy = function () {
+		// body...
+	}
+
 }
 
 var GAME = {
@@ -137,9 +165,31 @@ var GAME = {
 	},
 	addEnemy: function () {
 		GAME.enemies.push(new Enemy(GAME.enemies.length));
+	}, 
+	try_word: function (word) {
+		for (var i = 0, ii = GAME.enemies.length; i < ii; i++){
+			var cur = GAME.enemies[i];
+			if (cur !== undefined && (cur.get_word() === word || cur.get_word().toLowerCase() === word)) {
+				cur.destroy();
+				GAME.enemies.remove(i);
+			}
+		}
 	}
 
 };
+
+$('input').pressEnter(function(){
+	var input = $(this);
+	
+	GAME.try_word(input.val());
+	input.val('');
+	input.focus();
+});
+
+// input should always have focus
+$(window).click(function () {
+	$('input').focus();
+});
 
 
 var refresh = window.setInterval(GAME.refresh_all, 700);
