@@ -25,13 +25,13 @@ $.fn.pressEnter = function(fn) {
 
 
 var c = $('#pseudocanvas');
-var CENTER = {X: c.width() /2, Y: c.height() / 2};
+var CENTER_BOX = {X: 235, Y: 235};
 var WORDS = ['Acinetobacter infections', 'Actinomycosis', 'Amebiasis', 'Anaplasmosis', 'Anthrax', 'Ascariasis', 'Aspergillosis', 'Astrovirus infection', 'Babesiosis', 'Bacterial pneumonia', 'Bacteroides infection', 'Balantidiasis', 'Baylisascaris infection', 'Black piedra', 'Blastomycosis', 'Borrelia infection', 'Brucellosis', 'Bubonic plague', 'Burkholderia infection', 'Buruli ulcer', 'Campylobacteriosis', 'Cat-scratch disease', 'Cellulitis', 'Chancroid', 'Chickenpox', 'Chlamydia', 'Cholera', 'Chromoblastomycosis', 'Clonorchiasis', 'Coccidioidomycosis', 'Cryptococcosis', 'Cryptosporidiosis', 'Cyclosporiasis', 'Cysticercosis', 'Cytomegalovirus infection', 'Dengue fever', 'Dientamoebiasis', 'Diphtheria', 'Diphyllobothriasis', 'Dracunculiasis', 'Echinococcosis', 'Ehrlichiosis', 'Enterococcus infection', 'Enterovirus infection', 'Epidemic typhus', 'Fasciolopsiasis', 'Fasciolosis', 'Filariasis', 'Fusobacterium infection', 'Geotrichosis', 'Giardiasis', 'Glanders', 'Gnathostomiasis', 'Gonorrhea', 'Hepatitis A', 'Hepatitis B', 'Hepatitis C', 'Hepatitis D', 'Hepatitis E', 'Herpes simplex', 'Histoplasmosis', 'Hookworm infection', 'Hymenolepiasis', 'Influenza', 'Isosporiasis', 'Kawasaki disease', 'Keratitis', 'Kuru', 'Lassa fever', 'Leishmaniasis', 'Leprosy', 'Leptospirosis', 'Listeriosis', 'Lymphocytic choriomeningitis', 'Malaria', 'Measles', 'Meningitis', 'Meningococcal disease', 'Metagonimiasis', 'Microsporidiosis', 'Monkeypox', 'Mumps', 'Mycoplasma pneumonia', 'Mycetoma', 'Myiasis', 'Nocardiosis', 'Paragonimiasis', 'Pasteurellosis', 'Plague', 'Pneumococcal infection', 'Pneumonia', 'Poliomyelitis', 'Prevotella infection', 'Psittacosis', 'Q fever', 'Rabies', 'Rat-bite fever', 'Rhinosporidiosis', 'Rhinovirus infection', 'Rickettsial infection', 'Rickettsialpox', 'Rotavirus infection', 'Rubella', 'Salmonellosis', 'Scabies', 'Schistosomiasis', 'Sepsis', 'Smallpox', 'Sporotrichosis', 'Staphylococcal infection', 'Strongyloidiasis', 'Syphilis', 'Taeniasis', 'Tetanus', 'Tinea nigra', 'Trinochccliasis', 'Trichinlosis', 'Trichomoniasis', 'Tuberculosis', 'Tularemia', 'Valley fever', 'Viral pneumonia', 'Yersiniosis', 'Yellow fever', 'Zygomycosis']
 
 function Enemy (id) {
 	
 	var imgWidth = 50,
-		imgHeight = 50,
+		imgHeight = 69,
 		img_el,
 		html_el,
 		element_id = 'enemy' + id,
@@ -90,6 +90,22 @@ function Enemy (id) {
 		c.append(img_el);	
 		c.append(word_el);
 	//})();
+	var collision = function (x, y) {
+		var x1 = (c.width() - CENTER_BOX.X)/2,
+			x2 = x1 + CENTER_BOX.X,
+			y1 = (c.height() - CENTER_BOX.Y)/2,
+			y2 = y1 + CENTER_BOX.Y;
+
+		if (x < x2 && x > x1 && y < y2 && y > y1)
+			return true;
+		else 
+			return false;
+	}
+	// test
+	/*for(var i = 0, ii = 810; i < ii; i+=10) {
+		for(var j = 0, jj = 810; j < jj; j+=10) {
+			collision(i,j) ? console.log(i,j,collision(i,j)): ; 
+		}}*/
 
 	var move = function(length) {
 		length = length || 10;
@@ -128,6 +144,9 @@ function Enemy (id) {
 			}, {
 				duration: 200
 			});
+
+			if (collision(coords.x, coords.y))
+				console.log('CHCIP!');
 		}
 	};
 
@@ -145,7 +164,7 @@ function Enemy (id) {
 
 		rotate(Math.random()*20-10, move(10));
 	}
-	this.get_word = function () {
+	this.getWord = function () {
 		return this_word;
 	}
 	this.destroy = function () {
@@ -157,7 +176,7 @@ function Enemy (id) {
 var GAME = {
 	enemies: [],
 	level: 1,	
-	refresh_all: function () {
+	refreshAll: function () {
 		for (var i = 0; i < GAME.enemies.length; i++){
 			var cur_enemy = GAME.enemies[i];
 			cur_enemy.refresh();
@@ -166,10 +185,10 @@ var GAME = {
 	addEnemy: function () {
 		GAME.enemies.push(new Enemy(GAME.enemies.length));
 	}, 
-	try_word: function (word) {
+	tryWord: function (word) {
 		for (var i = 0, ii = GAME.enemies.length; i < ii; i++){
 			var cur = GAME.enemies[i];
-			if (cur !== undefined && (cur.get_word() === word || cur.get_word().toLowerCase() === word)) {
+			if (cur !== undefined && (cur.getWord() === word || cur.getWord().toLowerCase() === word)) {
 				cur.destroy();
 				GAME.enemies.remove(i);
 			}
@@ -181,7 +200,7 @@ var GAME = {
 $('input').pressEnter(function(){
 	var input = $(this);
 	
-	GAME.try_word(input.val());
+	GAME.tryWord(input.val());
 	input.val('');
 	input.focus();
 });
@@ -192,7 +211,7 @@ $(window).click(function () {
 });
 
 
-var refresh = window.setInterval(GAME.refresh_all, 700);
+var refresh = window.setInterval(GAME.refreshAll, 700);
 //var	addEnemy_timer = window.setInterval(GAME.addEnemy, 5000);
 
 
