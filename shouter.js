@@ -238,12 +238,14 @@ var addEnemy_timer;
 function start () {
 	GAME.removeAll();
 	GAME.score = 0;	
+	GAME.max_enemies = 5;
+	GAME.level = 1;
 
 	refresh = window.setInterval(GAME.refreshAll, 1000);
 	addEnemy_timer = window.setInterval(GAME.addEnemy, 5000);
 	
 	$(".lightbox").fadeOut("slow", "linear");
-	$("#score").text('');
+	$("#score").text('0');
 	$("#score").show();
 	GAME.addEnemy();
 }
@@ -262,6 +264,3 @@ $(window).click(function () {
 });
 
 $(".btn").click(start);
-
-
-
