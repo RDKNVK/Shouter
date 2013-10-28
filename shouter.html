@@ -4,12 +4,24 @@
 	<meta charset="utf-8">
 	<title>Shouter</title>
 	<link rel="stylesheet" type="text/css" href="files/style.css">
+	<link href='http://fonts.googleapis.com/css?family=Eater|Bigelow+Rules|Joti+One|Sancreek' rel='stylesheet' type='text/css'>
 </head>
 <body>
 	<div id="pseudocanvas" onclick="GAME.addEnemy();">
-		<div id="score"></div>
+		<div id="score" style="display: none;"></div>
 		<input type="text" autofocus>
+
+		<div id="start" class="lightbox">
+			<span class="instructions">Try to avert <div>the</div> <div style="font-family: 'Sancreek', cursive';">inevitable</div> <hr> type the name of each threat</span>
+			<div class="btn">Start game</div>
+		</div>
+		<div id="end" class="lightbox" style="display: none">
+			<span class="instructions">It had to come. <hr> You lived for <div id="endscore"></div> ape years.</span>
+			<div class="btn">Start game</div>
+		</div>
 	</div>
+
+
 
 	<!--<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>-->
 	<script src="files/libs/jquery-1.9.1.min.js"></script>

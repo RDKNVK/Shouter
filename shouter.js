@@ -91,10 +91,10 @@ function Enemy (id, level) {
 		c.append(word_el);
 	//})();
 	var collision = function (x, y) {
-		var x1 = (c.width() - CENTER_BOX.X)/2,
-			x2 = x1 + CENTER_BOX.X,
-			y1 = (c.height() - CENTER_BOX.Y)/2,
-			y2 = y1 + CENTER_BOX.Y;
+		var x1 = 330-imgWidth/2,
+			x2 = 453-imgWidth/2,
+			y1 = 280-imgHeight/2,
+			y2 = 504-imgHeight/2;
 
 		if (x < x2 && x > x1 && y < y2 && y > y1)
 			return true;
@@ -146,7 +146,7 @@ function Enemy (id, level) {
 			});
 
 			if (collision(coords.x, coords.y)){
-				//console.log(id, 'CHCIP!');
+				GAME.death(this_word);
 			}
 		}
 	};
@@ -183,14 +183,15 @@ var GAME = {
 	max_enemies: 5,
 	score: 0,
 	scoreIncr: function () {
-		GAME.score += 1;
+		this.score += 1;
 		$('#score').text(GAME.score);
-		
+
 		var new_level = Math.floor(GAME.score / 10) + 1;
 		if (new_level !== GAME.level) {
 			GAME.level = new_level;
 			GAME.max_enemies += 1;
 			window.clearInterval(refresh);
+			window.clearInterval(addEnemy_timer);
 			refresh = window.setInterval(GAME.refreshAll, Math.floor(1000/Math.sqrt(GAME.level)));
 			addEnemy_timer = window.setInterval(GAME.refreshAll, Math.floor(5000/Math.sqrt(GAME.level)));
 
@@ -204,8 +205,9 @@ var GAME = {
 		}
 	},
 	addEnemy: function () {
-		if (GAME.enemies.length < GAME.max_enemies)
+		if (GAME.enemies.length < GAME.max_enemies){
 			GAME.enemies.push(new Enemy(GAME.enemies.length, GAME.level));
+		}
 	}, 
 	tryWord: function (word) {
 		for (var i = 0, ii = GAME.enemies.length; i < ii; i++){
@@ -215,9 +217,29 @@ var GAME = {
 				GAME.enemies.remove(i);
 			}
 		}
+	}, 
+	removeAll: function () {
+		GAME.enemies = [];
+		$('.enemy').remove();
+		$('.word').remove();
+	},
+	death: function (by) {
+		window.clearInterval(refresh);
+		window.clearInterval(addEnemy_timer);
+		$('#score').hide();
+		$('#endscore').text(GAME.score);
+		$('#end').fadeToggle("fast");
 	}
 
 };
+var refresh;
+var addEnemy_timer;
+
+function start () {
+	refresh = window.setInterval(GAME.refreshAll, 1000);
+	addEnemy_timer = window.setInterval(GAME.addEnemy, 5000);
+	GAME.addEnemy();
+}
 
 $('input').pressEnter(function(){
 	var input = $(this);
@@ -232,8 +254,12 @@ $(window).click(function () {
 	$('input').focus();
 });
 
+$(".btn").click(function () {
+	$(".lightbox").fadeOut("slow", "linear");
+	$("#score").show();
+	GAME.removeAll();
+	start();
+});
 
-var refresh = window.setInterval(GAME.refreshAll, 1000);
-var addEnemy_timer = window.setInterval(GAME.addEnemy, 5000);
 
 
