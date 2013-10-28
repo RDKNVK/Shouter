@@ -26,7 +26,7 @@ var c = $('#pseudocanvas');
 var CENTER_BOX = {X: 235, Y: 235};
 
 var WORDS = ['Acinetobacter infections', 'Actinomycosis', 'Amebiasis', 'Anaplasmosis', 'Anthrax', 'Ascariasis', 'Aspergillosis', 'Astrovirus infection', 'Babesiosis', 'Bacterial pneumonia', 'Bacteroides infection', 'Balantidiasis', 'Baylisascaris infection', 'Black piedra', 'Blastomycosis', 'Borrelia infection', 'Brucellosis', 'Bubonic plague', 'Burkholderia infection', 'Buruli ulcer', 'Campylobacteriosis', 'Cat-scratch disease', 'Cellulitis', 'Chancroid', 'Chickenpox', 'Chlamydia', 'Cholera', 'Chromoblastomycosis', 'Clonorchiasis', 'Coccidioidomycosis', 'Cryptococcosis', 'Cryptosporidiosis', 'Cyclosporiasis', 'Cysticercosis', 'Cytomegalovirus infection', 'Dengue fever', 'Dientamoebiasis', 'Diphtheria', 'Diphyllobothriasis', 'Dracunculiasis', 'Echinococcosis', 'Ehrlichiosis', 'Enterococcus infection', 'Enterovirus infection', 'Epidemic typhus', 'Fasciolopsiasis', 'Fasciolosis', 'Filariasis', 'Fusobacterium infection', 'Geotrichosis', 'Giardiasis', 'Glanders', 'Gnathostomiasis', 'Gonorrhea', 'Hepatitis A', 'Hepatitis B', 'Hepatitis C', 'Hepatitis D', 'Hepatitis E', 'Herpes simplex', 'Histoplasmosis', 'Hookworm infection', 'Hymenolepiasis', 'Influenza', 'Isosporiasis', 'Kawasaki disease', 'Keratitis', 'Kuru', 'Lassa fever', 'Leishmaniasis', 'Leprosy', 'Leptospirosis', 'Listeriosis', 'Lymphocytic choriomeningitis', 'Malaria', 'Measles', 'Meningitis', 'Meningococcal disease', 'Metagonimiasis', 'Microsporidiosis', 'Monkeypox', 'Mumps', 'Mycoplasma pneumonia', 'Mycetoma', 'Myiasis', 'Nocardiosis', 'Paragonimiasis', 'Pasteurellosis', 'Plague', 'Pneumococcal infection', 'Pneumonia', 'Poliomyelitis', 'Prevotella infection', 'Psittacosis', 'Q fever', 'Rabies', 'Rat-bite fever', 'Rhinosporidiosis', 'Rhinovirus infection', 'Rickettsial infection', 'Rickettsialpox', 'Rotavirus infection', 'Rubella', 'Salmonellosis', 'Scabies', 'Schistosomiasis', 'Sepsis', 'Smallpox', 'Sporotrichosis', 'Staphylococcal infection', 'Strongyloidiasis', 'Syphilis', 'Taeniasis', 'Tetanus', 'Tinea nigra', 'Trinochccliasis', 'Trichinlosis', 'Trichomoniasis', 'Tuberculosis', 'Tularemia', 'Valley fever', 'Viral pneumonia', 'Yersiniosis', 'Yellow fever', 'Zygomycosis']
-var EASY_WORDS = ["Aardvark","Albatross","Alligator","Alpaca","Ant","Anteater","Antelope","Ape","Armadillo","Ass/Donkey","Baboon","Badger","Barracuda","Bat","Bear","Beaver","Bee","Bison","Boar","Buffalo","Galago","Butterfly","Camel","Caribou","Cat","Caterpillar","Cattle","Chamois","Cheetah","Chicken","Chimpanzee","Chinchilla","Chough","Clam","Cobra","Cockroach","Cod","Cormorant","Coyote","Crab","Crane","Crocodile","Crow","Curlew","Deer","Dinosaur","Dog","Dogfish","Dolphin","Donkey","Dotterel","Dove","Dragonfly","Duck","Mallard","Dugong","Dunlin","Eagle","Echidna","Eel","Eland","Elephant","Elephant seal","Elk","Wapiti","Emu","Falcon","Ferret","Finch","Fish","Flamingo","Fly","Fox","Frog","Gaur","Gazelle","Gerbil","Giant Panda","Giraffe","Gnat","Gnu","Goat","Goose","Goldfinch","Goldfish","Gorilla","Goshawk","Grasshopper","Grouse","Guanaco","Guinea fowl","Guinea pig","Gull","Hamster","Hare","Hawk","Hedgehog","Heron","Herring","Hippopotamus","Hornet","Horse","Human","Hummingbird","Hyena","Jackal","Jaguar","Jay","Blue Jay","Jellyfish","Kangaroo","Koala","Komodo dragon","Kouprey","Kudu","Lapwing","Lark","Lemur","Leopard","Lion","Llama","Lobster","Locust","Loris","Louse","Lyrebird","Magpie","Mallard","Manatee","Marten","Meerkat","Mink","Mole","Monkey","Moose","Mouse","Mosquito","Mule","Narwhal","Newt","Nightingale","Octopus","Okapi","Opossum","Oryx","Ostrich","Otter","Owl","Ox","Oyster","Panther","Parrot","Partridge","Peafowl","Pelican","Penguin","Pheasant","Pig","Pigeon","Pony","Porcupine","Porpoise","Prairie Dog","Quail","Quelea","Rabbit","Raccoon","Rail","Ram","Rat","Raven","Red deer","Red panda","Reindeer","Caribou","Rhinoceros","Rook","Ruff","Salamander","Salmon","Sand Dollar","Sandpiper","Sardine","Scorpion","Sea lion","Sea Urchin","Seahorse","Seal","Shark","Sheep","Shrew","Shrimp","Skunk","Snail","Snake","Spider","Squid","Squirrel","Starling","Stingray","Stinkbug","Stork","Swallow","Swan","Tapir","Tarsier","Termite","Tiger","Toad","Trout","Turkey","Turtle","Vicuña","Viper","Vulture","Wallaby","Walrus","Wasp","Water buffalo","Weasel","Whale","Wolf","Wolverine","Wombat","Woodcock","Woodpecker","Worm","Wren","Yak","Zebra"];
+var EASY_WORDS = ["Aardvark","Albatross","Alligator","Alpaca","Ant","Anteater","Antelope","Ape","Armadillo","Donkey","Baboon","Badger","Barracuda","Bat","Bear","Beaver","Bee","Bison","Boar","Buffalo","Galago","Butterfly","Camel","Caribou","Cat","Caterpillar","Cattle","Chamois","Cheetah","Chicken","Chimpanzee","Chinchilla","Chough","Clam","Cobra","Cockroach","Cod","Cormorant","Coyote","Crab","Crane","Crocodile","Crow","Curlew","Deer","Dinosaur","Dog","Dogfish","Dolphin","Donkey","Dotterel","Dove","Dragonfly","Duck","Mallard","Dugong","Dunlin","Eagle","Echidna","Eel","Eland","Elephant","Elephant seal","Elk","Wapiti","Emu","Falcon","Ferret","Finch","Fish","Flamingo","Fly","Fox","Frog","Gaur","Gazelle","Gerbil","Giant Panda","Giraffe","Gnat","Gnu","Goat","Goose","Goldfinch","Goldfish","Gorilla","Goshawk","Grasshopper","Grouse","Guanaco","Guinea fowl","Guinea pig","Gull","Hamster","Hare","Hawk","Hedgehog","Heron","Herring","Hippopotamus","Hornet","Horse","Human","Hummingbird","Hyena","Jackal","Jaguar","Jay","Blue Jay","Jellyfish","Kangaroo","Koala","Komodo dragon","Kouprey","Kudu","Lapwing","Lark","Lemur","Leopard","Lion","Llama","Lobster","Locust","Loris","Louse","Lyrebird","Magpie","Mallard","Manatee","Marten","Meerkat","Mink","Mole","Monkey","Moose","Mouse","Mosquito","Mule","Narwhal","Newt","Nightingale","Octopus","Okapi","Opossum","Oryx","Ostrich","Otter","Owl","Ox","Oyster","Panther","Parrot","Partridge","Peafowl","Pelican","Penguin","Pheasant","Pig","Pigeon","Pony","Porcupine","Porpoise","Prairie Dog","Quail","Quelea","Rabbit","Raccoon","Rail","Ram","Rat","Raven","Red deer","Red panda","Reindeer","Caribou","Rhinoceros","Rook","Ruff","Salamander","Salmon","Sand Dollar","Sandpiper","Sardine","Scorpion","Sea lion","Sea Urchin","Seahorse","Seal","Shark","Sheep","Shrew","Shrimp","Skunk","Snail","Snake","Spider","Squid","Squirrel","Starling","Stingray","Stinkbug","Stork","Swallow","Swan","Tapir","Tarsier","Termite","Tiger","Toad","Trout","Turkey","Turtle","Vicuña","Viper","Vulture","Wallaby","Walrus","Wasp","Water buffalo","Weasel","Whale","Wolf","Wolverine","Wombat","Woodcock","Woodpecker","Worm","Wren","Yak","Zebra"];
 
 function Enemy (id, level) {
 	var imgWidth = 50,
@@ -37,7 +37,7 @@ function Enemy (id, level) {
 		coords = {x: 0, y: 0},
 		rotation = 0,
 		word_n = Math.floor(WORDS.length * Math.random()),
-		this_word = level < 11 ? EASY_WORDS[word_n] : WORDS[word_n];
+		this_word = (level < 11 ? EASY_WORDS[word_n] : WORDS[word_n]).toLowerCase();
 
 	// init position
 	(function init(w, h) {
@@ -196,7 +196,7 @@ var GAME = {
 			addEnemy_timer = window.setInterval(GAME.refreshAll, Math.floor(5000/Math.sqrt(GAME.level)));
 
 		}
-
+		GAME.addEnemy();
 	},
 	refreshAll: function () {
 		for (var i = 0; i < GAME.enemies.length; i++){
@@ -236,8 +236,15 @@ var refresh;
 var addEnemy_timer;
 
 function start () {
+	GAME.removeAll();
+	GAME.score = 0;	
+
 	refresh = window.setInterval(GAME.refreshAll, 1000);
 	addEnemy_timer = window.setInterval(GAME.addEnemy, 5000);
+	
+	$(".lightbox").fadeOut("slow", "linear");
+	$("#score").text('');
+	$("#score").show();
 	GAME.addEnemy();
 }
 
@@ -254,12 +261,7 @@ $(window).click(function () {
 	$('input').focus();
 });
 
-$(".btn").click(function () {
-	$(".lightbox").fadeOut("slow", "linear");
-	$("#score").show();
-	GAME.removeAll();
-	start();
-});
+$(".btn").click(start);
 
 
 
