@@ -230,26 +230,24 @@ var GAME = {
 		$('#score').hide();
 		$('#endscore').text(GAME.score);
 		$('#end').fadeToggle("fast");
+	},
+	start: function () {
+		GAME.removeAll();
+		GAME.score = 0;	
+		GAME.max_enemies = 5;
+		GAME.level = 1;
+	
+		refresh = window.setInterval(GAME.refreshAll, 1000);
+		addEnemy_timer = window.setInterval(GAME.addEnemy, 5000);
+		
+		$(".lightbox").fadeOut("slow", "linear");
+		$("#score").text('0');
+		$("#score").show();
+		GAME.addEnemy();
 	}
-
 };
 var refresh;
 var addEnemy_timer;
-
-function start () {
-	GAME.removeAll();
-	GAME.score = 0;	
-	GAME.max_enemies = 5;
-	GAME.level = 1;
-
-	refresh = window.setInterval(GAME.refreshAll, 1000);
-	addEnemy_timer = window.setInterval(GAME.addEnemy, 5000);
-	
-	$(".lightbox").fadeOut("slow", "linear");
-	$("#score").text('0');
-	$("#score").show();
-	GAME.addEnemy();
-}
 
 $('input').pressEnter(function(){
 	var input = $(this);
@@ -264,4 +262,4 @@ $(window).click(function () {
 	$('input').focus();
 });
 
-$(".btn").click(start);
+$(".btn").click(GAME.start);
