@@ -78,18 +78,24 @@ function Enemy (id, level) {
 					width: imgWidth
 					//"height": imgHeight
 				}).css({
-					top: coords.x,
-					left: coords.y
+					top: coords.y,
+					left: coords.x,
+					'-moz-transform':'rotate('+rotation+'deg)',
+          			'-webkit-transform':'rotate('+rotation+'deg)',
+          			'-o-transform':'rotate('+rotation+'deg)',
+          			'-ms-transform':'rotate('+rotation+'deg)',
+          			'transform': 'rotate('+rotation+'deg)'
 				});
 	var	word_el = $('<div>').addClass('word')
 						.css({
-								top: coords.x,
-								left: coords.y
+								top: coords.y,
+								left: coords.x
 						}).text(this_word);
 	
 		c.append(img_el);	
 		c.append(word_el);
 	//})();
+
 	var collision = function (x, y) {
 		var x1 = 330-imgWidth/2,
 			x2 = 453-imgWidth/2,
@@ -101,11 +107,6 @@ function Enemy (id, level) {
 		else 
 			return false;
 	}
-	// test
-	/*for(var i = 0, ii = 810; i < ii; i+=10) {
-		for(var j = 0, jj = 810; j < jj; j+=10) {
-			collision(i,j) ? console.log(i,j,collision(i,j)): ; 
-		}}*/
 
 	var move = function(length) {
 		length = length || 10;
