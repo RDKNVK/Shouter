@@ -1,4 +1,4 @@
 Shouter
 =======
 
-Typing game using many HTML5 and CSS3 features
+Game inspired by Crimsonland's Type'o'Shooter using HTML5, CSS3 and jQuery.
