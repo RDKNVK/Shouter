@@ -183,71 +183,104 @@ var GAME = {
 	level: 1,
 	max_enemies: 5,
 	score: 0,
+	addEnemy_timer: null,
+	refresh: null,
+
 	scoreIncr: function () {
 		this.score += 1;
-		$('#score').text(GAME.score);
+		$('#score').text(this.score);
 
-		var new_level = Math.floor(GAME.score / 10) + 1;
-		if (new_level !== GAME.level) {
-			GAME.level = new_level;
-			GAME.max_enemies += 1;
-			window.clearInterval(refresh);
-			window.clearInterval(addEnemy_timer);
-			refresh = window.setInterval(GAME.refreshAll, Math.floor(1000/Math.sqrt(GAME.level)));
-			addEnemy_timer = window.setInterval(GAME.refreshAll, Math.floor(5000/Math.sqrt(GAME.level)));
+		var new_level = Math.floor(this.score / 10) + 1;
+		if (new_level !== this.level) {
+			this.level = new_level;
+			this.max_enemies += 1;
+			window.clearInterval(this.refresh);
+			window.clearInterval(this.addEnemy_timer);
 
+			this.refresh = window.setInterval(
+				// to preserve the proper context
+				(function(self) {
+					return function() {
+						self.refreshAll();
+					}
+				})(this), 
+
+				Math.floor(1000/Math.sqrt(this.level))
+			);
+
+			this.addEnemy_timer = window.setInterval(
+				(function(self) {
+					return function() {
+						self.addEnemy();
+					}
+				})(this), 
+
+				Math.floor(5000/Math.sqrt(this.level))
+			);
 		}
-		GAME.addEnemy();
+
+		this.addEnemy();
 	},
 	refreshAll: function () {
-		for (var i = 0; i < GAME.enemies.length; i++){
-			var cur_enemy = GAME.enemies[i];
+		for (var i = 0; i < this.enemies.length; i++){
+			var cur_enemy = this.enemies[i];
 			cur_enemy.refresh();
 		}
 	},
 	addEnemy: function () {
-		if (GAME.enemies.length < GAME.max_enemies){
-			GAME.enemies.push(new Enemy(GAME.enemies.length, GAME.level));
+		if (this.enemies.length < this.max_enemies){
+			this.enemies.push(new Enemy(this.enemies.length, this.level));
 		}
 	}, 
 	tryWord: function (word) {
-		for (var i = 0, ii = GAME.enemies.length; i < ii; i++){
-			var cur = GAME.enemies[i];
+		for (var i = 0, ii = this.enemies.length; i < ii; i++){
+			var cur = this.enemies[i];
 			if (cur !== undefined && (cur.getWord() === word || cur.getWord().toLowerCase() === word)) {
 				cur.destroy();
-				GAME.enemies.remove(i);
+				this.enemies.remove(i);
 			}
 		}
 	}, 
 	removeAll: function () {
-		GAME.enemies = [];
+		this.enemies = [];
 		$('.enemy').remove();
 		$('.word').remove();
 	},
 	death: function (by) {
-		window.clearInterval(refresh);
-		window.clearInterval(addEnemy_timer);
+		window.clearInterval(this.refresh);
+		window.clearInterval(this.addEnemy_timer);
 		$('#score').hide();
-		$('#endscore').text(GAME.score);
+		$('#endscore').text(this.score);
 		$('#end').fadeToggle("fast");
 	},
 	start: function () {
-		GAME.removeAll();
-		GAME.score = 0;	
-		GAME.max_enemies = 5;
-		GAME.level = 1;
+		this.removeAll();
+		this.score = 0;	
+		this.max_enemies = 5;
+		this.level = 1;
 	
-		refresh = window.setInterval(GAME.refreshAll, 1000);
-		addEnemy_timer = window.setInterval(GAME.addEnemy, 5000);
+		this.refresh = window.setInterval(
+			(function(self) {
+				return function() {
+						self.refreshAll();
+				}
+			})(this)
+		, 1000);
+
+		this.addEnemy_timer = window.setInterval(
+			(function(self) {
+				return function() {
+						self.addEnemy();
+				}
+			})(this)
+		, 5000);
 		
 		$(".lightbox").fadeOut("slow", "linear");
 		$("#score").text('0');
 		$("#score").show();
-		GAME.addEnemy();
+		this.addEnemy();
 	}
 };
-var refresh;
-var addEnemy_timer;
 
 $('input').pressEnter(function(){
 	var input = $(this);
@@ -262,4 +295,8 @@ $(window).click(function () {
 	$('input').focus();
 });
 
-$(".btn").click(GAME.start);
+$(".btn").click(
+	function () {
+		GAME.start();
+	}
+);
