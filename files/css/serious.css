@@ -1,0 +1,36 @@
+@font-face {
+	font-family: "Exotica";
+	src: url("../fonts/Exotica.ttf");
+}
+@font-face {
+	font-family: "Romantiques";
+	src: url("../fonts/ds-romantiques.regular.ttf");
+}
+body {
+	background-color: #0B5FA5;
+	color: white;
+	font-family: Georgia;
+}
+a, a:link, a:visited, a:active {
+	color: inherit;
+	text-decoration: underline;
+}
+
+h1 {
+	font-family: "Romantiques", Georgia;
+	font-weight: 100;
+	font-size: 64pt;
+	width: 100%;
+	text-align: center;
+}
+
+#color-button {
+	width: 50px;
+	position: absolute;
+	z-index: 100;
+	float: right;
+	bottom: 40px;
+	left: 50%;
+	cursor: move;
+	
+}

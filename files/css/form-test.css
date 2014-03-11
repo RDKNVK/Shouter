@@ -1,0 +1,119 @@
+body {
+	background-color: #eee;
+	padding: 20px;
+}
+h1 {
+	display: inline;
+}
+form {
+	margin: 0 auto;
+	display: block;
+	width: 100%;
+	max-width: 1300px;
+}
+fieldset {
+	margin-top: 2em;
+}
+.col-xs-1, .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-9, .col-xs-10, .col-xs-11, .col-xs-12, .col-sm-1, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-sm-10, .col-sm-11, .col-sm-12, .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12, .col-lg-1, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-lg-10, .col-lg-11, .col-lg-12 {
+	padding: 0;
+}
+em {
+	font-size: 1.2em;
+	font-style: normal;
+	font-weight: bold;
+}
+input {
+	/*outline: 1px solid gray;*/
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	border: 1px solid gray;
+	margin: 1px;
+	/*box-shadow: 0 1px 1px rgba(0,0,0,0.1), inset 0px 1px 1px rgba(0,0,0,0.1);
+	box-shadow: none;
+	*/
+}
+input[type="text"] {
+	width: 100%;
+	/*background-color: gray;*/
+}
+input[type="checkbox"] {
+	background-color: white;
+	width: 1em;
+	height: 1em;
+	/*background-color: gray;*/
+}
+input[type="checkbox"]:checked {
+	background-color: black;
+	width: 1em;
+	height: 1em;
+}
+
+input[type="text"].ratio {
+	width: 30px;
+	display: inline-block;
+}
+input.big {
+	width: 1.5em;
+	height: 1.5em;
+
+	border: 1px solid gray;
+	position: relative;
+	top: 5px;
+}
+input.big:checked {
+	width: 1.5em;
+	height: 1.5em;
+	border: 1px;
+	position: relative;
+	top: 5px;
+	background-color: black;
+}
+input[type="submit"] {
+	margin-top: 2em;
+	width: 90%;
+	font-weight: bolder;
+	font-size: 2em;
+	border-radius: 3px;
+}
+#submit-wrapper {
+	text-align: center;
+}
+.row {
+	width: 100%;
+	margin: 0 auto;
+}
+.row > div {
+	padding-left: 1px;
+	padding-right: 1px;
+}/*
+div[class^="col-md-"], .col-sm-* {
+	padding-left: 0;
+	padding-right: 0;
+	display: inline-block;
+}*/
+table th {
+	font-size: 0.8em;
+	font-weight: normal;
+	text-align: right;
+}
+table  {
+	margin-right: 20px;
+}
+table td:nth-child(2) {
+	text-align: left;
+	padding-left: 10px;
+}
+table td:nth-child(3),table td:nth-child(4) {
+	width: 20em;
+	text-align: right;
+}
+table td:nth-child(3) {
+	width: 10em;
+}
+
+input[type="text"].money {
+	width: 90%;
+}
+input[type="text"].money:after {
+	content: "Kč";
+}
